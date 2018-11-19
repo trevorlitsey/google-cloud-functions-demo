@@ -10,7 +10,7 @@ class Films extends PureComponent {
   };
 
   render() {
-    const { views, loading } = this.props;
+    const { views, films, loading } = this.props;
 
     if (loading) {
       return (
@@ -27,7 +27,7 @@ class Films extends PureComponent {
         <Table>
           <Table.Header>
             <Table.Row>
-              <Table.Cell>FilmId</Table.Cell>
+              <Table.Cell>Film</Table.Cell>
               <Table.Cell>Timestamp</Table.Cell>
               <Table.Cell>Delete</Table.Cell>
             </Table.Row>
@@ -35,10 +35,11 @@ class Films extends PureComponent {
           <Table.Body>
             {views.map(view => {
               const timestamp = new Date(view.timestamp).toLocaleString();
+              const film = films.find(film => film.id === view.film_id);
 
               return (
                 <Table.Row key={view.id}>
-                  <Table.Cell>{view.film_id}</Table.Cell>
+                  <Table.Cell>{film ? film.name : ''}</Table.Cell>
                   <Table.Cell>{timestamp}</Table.Cell>
                   <Table.Cell>
                     <Button

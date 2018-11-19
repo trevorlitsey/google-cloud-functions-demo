@@ -1,5 +1,4 @@
 import React, { PureComponent } from 'react';
-import { Container, Divider } from 'semantic-ui-react';
 import db from './firestore';
 import Films from './components/Films';
 import Views from './components/Views';
@@ -16,17 +15,23 @@ class App extends PureComponent {
   };
 
   componentDidMount = () => {
-    this.viewsUnsubscribe = db.collection('views').onSnapshot(
-      snapshot => {
-        const views = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+    this.viewsUnsubscribe = db
+      .collection('views')
+      .orderBy('timestamp', 'desc')
+      .onSnapshot(
+        snapshot => {
+          const views = snapshot.docs.map(doc => ({
+            id: doc.id,
+            ...doc.data(),
+          }));
 
-        this.setState({
-          views,
-          viewsLoading: false,
-        });
-      },
-      err => console.error(err)
-    );
+          this.setState({
+            views,
+            viewsLoading: false,
+          });
+        },
+        err => console.error(err)
+      );
 
     this.filmsUnsubscribe = db.collection('films').onSnapshot(
       snapshot => {
@@ -63,7 +68,7 @@ class App extends PureComponent {
           <FilmForm />
         </div>
         <div>
-          <Views views={views} loading={viewsLoading} />
+          <Views views={views} films={films} loading={viewsLoading} />
           <ViewForm films={films} />
         </div>
       </div>
