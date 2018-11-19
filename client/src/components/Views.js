@@ -39,7 +39,7 @@ class Films extends PureComponent {
 
               return (
                 <Table.Row key={view.id}>
-                  <Table.Cell>{film ? film.name : ''}</Table.Cell>
+                  <Table.Cell>{film ? film.name : '🤷‍'}</Table.Cell>
                   <Table.Cell>{timestamp}</Table.Cell>
                   <Table.Cell>
                     <Button
