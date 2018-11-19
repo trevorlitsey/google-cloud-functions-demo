@@ -50,13 +50,23 @@ class App extends PureComponent {
     const { views, viewsLoading, films, filmsLoading } = this.state;
 
     return (
-      <Container style={{ marginTop: 20, marginBottom: 40 }}>
-        <Films films={films} loading={filmsLoading} />
-        <FilmForm />
-        <Divider />
-        <Views views={views} loading={viewsLoading} />
-        <ViewForm films={films} />
-      </Container>
+      <div
+        style={{
+          margin: 40,
+          display: 'grid',
+          gridTemplateColumns: '50% 50%',
+          gridGap: 10,
+        }}
+      >
+        <div>
+          <Films films={films} loading={filmsLoading} />
+          <FilmForm />
+        </div>
+        <div>
+          <Views views={views} loading={viewsLoading} />
+          <ViewForm films={films} />
+        </div>
+      </div>
     );
   }
 }
